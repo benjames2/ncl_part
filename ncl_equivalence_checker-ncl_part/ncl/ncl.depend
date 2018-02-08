@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1517715366 source:c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<string.h>
+	"GateLogic.h"
+	"ReadNetlistandInput.h"
+	"NclGatesFunctons.h"
+	"PrintingFunctions.h"
+
+1517458796 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\gatelogic.h
+	<stdint.h>
+
+1517457753 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\readnetlistandinput.h
+	<stdint.h>
+
+1517715097 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
+	<stdint.h>
+
+1517715474 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatesfunctons.h
+	<stdint.h>
+
