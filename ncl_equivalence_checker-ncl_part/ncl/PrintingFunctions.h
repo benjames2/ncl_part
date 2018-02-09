@@ -279,6 +279,7 @@ void printSmt(GATE_IO *a, int size)
     int maxOutputIndex = 0;
     char def[] = "(define-fun wire";                //Declaring an array of strings for declaring the variables
     char bitvec[] = "(_ BitVec";
+    char cs[] = "cs_";
     char closing[] = "))";
     char wire[] = "(let ((wire";
     char wire2[] = "wire";
@@ -318,6 +319,7 @@ void printSmt(GATE_IO *a, int size)
                 fprintf(fp, "%s" "%i ", wire, i);
                 strcpy(getfuncSymbol, printFunctionSymbol(a[i].gate));
                 fprintf(fp, "%s", getfuncSymbol);
+                fprintf(fp,"%s" "%i ", cs, a[i].wire_out);
 
                 for(j = 0; j < a[i].num_inputs; j++){
                     if(j == (a[i].num_inputs - 1)){                                //choose proper format if last input or not
