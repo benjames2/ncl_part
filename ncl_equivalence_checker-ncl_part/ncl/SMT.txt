@@ -1,5 +1,4 @@
 ; SMT functions for NCL Gates
-; 09/05/17
 
 ------------------------------------------------------------------------------------------------
 
@@ -522,7 +521,7 @@
 (define-fun wire3(_ BitVec1))
 (define-fun wire4(_ BitVec1))
 
-(let ((wire5 (THand0 wire1 wire2 wire3 wire4))
-(let ((wire6 (TH22 wire3 wire4))))
+(let ((wire5 (THand0 cs_5 wire1 wire2 wire3 wire4))
+(let ((wire6 (TH22 cs_6 wire3 wire4))))
 
 
