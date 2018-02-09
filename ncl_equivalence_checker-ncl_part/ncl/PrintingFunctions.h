@@ -285,9 +285,14 @@ void printSmt(GATE_IO *a, int size)
     char getfuncSymbol[12];
 
     FILE *fp;
-    fp = fopen("SMT.txt", "w");
+    fp = fopen("SMT.txt", "a");
+    if (fp == NULL)
+    {
+        printf("Cannot open file \n");
+        exit;
+    }
 
-    fprintf(fp, "%s", NCL_GATES_SMT_FUNCTIONS);
+    fprintf(fp, "\n\n\n");
 
     for(i = 0; i < size; i++){
         if((a[i].bit_size != 0) && (a[i].gate != 0)){

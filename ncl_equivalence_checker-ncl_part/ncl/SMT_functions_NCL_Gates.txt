@@ -1,6 +1,4 @@
 ; SMT functions for NCL Gates
-; Dylan Visto
-; 09/05/17
 
 ------------------------------------------------------------------------------------------------
 
@@ -9,7 +7,7 @@
 ; cs : current state
 ; i0, i1 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1)) Bool
+(define-fun TH12 ((Bool cs) (Bool i0) (Bool i1)) Bool
 	(ite
 		(or i0 i1)	
 		true									
@@ -28,7 +26,7 @@
 ; cs : current state
 ; i0, i1 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1)) Bool
+(define-fun TH22 ((Bool cs) (Bool i0) (Bool i1)) Bool
 	(ite
 		(and i0 i1)	
 		true									
@@ -47,7 +45,7 @@
 ; cs : current state
 ; i0, i1, i2 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
+(define-fun TH13 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
 	(ite
 		(or i0 i1 i2)	
 		true									
@@ -66,7 +64,7 @@
 ; cs : current state
 ; i0, i1, i2 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
+(define-fun TH23 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i1 i2))	
 		true									
@@ -85,7 +83,7 @@
 ; cs : current state
 ; i0, i1, i2 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
+(define-fun TH33 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
 	(ite
 		(and i0 i1 i2)	
 		true									
@@ -104,7 +102,7 @@
 ; cs : current state
 ; i0, i1, i2 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
+(define-fun TH23w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
 	(ite
 		(or i0 (and i1 i2))	
 		true									
@@ -123,7 +121,7 @@
 ; cs : current state
 ; i0, i1, i2 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
+(define-fun TH33w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2))	
 		true									
@@ -142,7 +140,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH14 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or i0 i1 i2 i3)	
 		true									
@@ -161,7 +159,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH24 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i2) (and i1 i3) (and i2 i3))	
 		true									
@@ -180,7 +178,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl4t3_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH34 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1 i2) (and i0 i1 i3) (and i0 i2 i3) (and i1 i2 i3))	  ; if 3 or more inputs assert
 		true									                              ; assert output
@@ -199,7 +197,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH44 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(and i0 i1 i3 i4)	
 		true									
@@ -218,7 +216,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH24w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or i0 (and i1 i2) (and i1 i3) (and i2 i3))	
 		true									
@@ -237,7 +235,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH34w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i2 i3))	
 		true									
@@ -256,7 +254,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH44w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1 i2) (and i0 i1 i3) (and i0 i2 i3))	
 		true									
@@ -275,7 +273,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH34w3 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or i0 (and i1 i2 i3))	
 		true									
@@ -294,7 +292,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH44w3 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i0 i3))	
 		true									
@@ -313,7 +311,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH24w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or i0 i1 (and i2 i3))	
 		true									
@@ -332,7 +330,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH34w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i2) (and i1 i3))	
 		true									
@@ -351,7 +349,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH44w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2 i3) (and i1 i2 i3))	
 		true									
@@ -370,7 +368,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH54w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1 i2) (and i0 i1 i3))	
 		true									
@@ -389,7 +387,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH34w32 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or i0 (and i1 i2) (and i1 i3))	
 		true									
@@ -408,7 +406,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH54w32 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2 i3))	
 		true									
@@ -427,7 +425,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH44w322 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i3))	
 		true									
@@ -446,7 +444,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH54w322 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i0 i2) (and i1 i2 i3))	
 		true									
@@ -465,7 +463,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun THxor0 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i2 i3))	
 		true									
@@ -484,7 +482,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun THand0 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i1) (and i1 i2) (and i0 i3))	
 		true									
@@ -503,7 +501,7 @@
 ; cs : current state
 ; i0, i1, i2, i3 : inputs
 
-(define-fun ncl2t1_ns ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
+(define-fun TH24comp ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
 	(ite
 		(or (and i0 i2) (and i1 i2) (and i0 i3) (and i1 i3))
 		true									

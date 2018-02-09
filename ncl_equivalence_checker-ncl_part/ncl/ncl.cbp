@@ -31,9 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="GateLogic.h" />
+		<Unit filename="NclGatesSmtFunctions.h" />
+		<Unit filename="PrintingFunctions.h" />
+		<Unit filename="ReadNetlistandInput.h" />
+		<Unit filename="SMT.txt" />
+		<Unit filename="SMT_functions_NCL_Gates.txt" />
+		<Unit filename="input_list.txt" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="netlist.txt" />
 		<Extensions>
 			<code_completion />
 			<envvars />
