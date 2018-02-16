@@ -20,12 +20,22 @@
 
 int main(int argc, char *argv[])
 {
+    //Creates a character array (string) called netlist.txt to store in filename
     char filename[] = "netlist.txt";
+    //Creates a string called inputs_list.txt to store in inputFilename
     char inputFilename[] = "input_list.txt";
+
+    //Passes the filenames to the readInputList and readNetlist header files to read the netlist and
+    //inputs list text files
     readInputList(inputFilename);
     readNetlist(filename);
-    PrintNclGatesSmtFunctions();
+    PrintNclGatesSmtFunctions(); //This prints off the NCL SMT functions first
+
+    //This passes the parameters gateStorage and MAX_SIZE to printSmt and printArrayStruct functions in the PrintingFunctions header
+    //and writes the SMT to a text file
+
     printSmt(gateStorage, MAX_SIZE);
     printArrayStruct(gateStorage, MAX_SIZE);
+    //GateStorage holds the information on each gate from the netlist and MAX_SIZE defines the maximum size of the global array
     return 0;
 }
