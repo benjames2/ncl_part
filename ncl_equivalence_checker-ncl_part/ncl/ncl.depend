@@ -24,3 +24,25 @@
 1518147674 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatessmtfunctions.h
 	<stdint.h>
 
+1518754412 source:c:\users\julian\documents\jt's folder\ncl repo\ncl_part\ncl_equivalence_checker-ncl_part\ncl\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdint.h>
+	<string.h>
+	"GateLogic.h"
+	"ReadNetlistandInput.h"
+	"NclGatesSmtFunctions.h"
+	"PrintingFunctions.h"
+
+1518754985 c:\users\julian\documents\jt's folder\ncl repo\ncl_part\ncl_equivalence_checker-ncl_part\ncl\gatelogic.h
+	<stdint.h>
+
+1518792763 c:\users\julian\documents\jt's folder\ncl repo\ncl_part\ncl_equivalence_checker-ncl_part\ncl\readnetlistandinput.h
+	<stdint.h>
+
+1518789860 c:\users\julian\documents\jt's folder\ncl repo\ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatessmtfunctions.h
+	<stdint.h>
+
+1518744458 c:\users\julian\documents\jt's folder\ncl repo\ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
+	<stdint.h>
+
