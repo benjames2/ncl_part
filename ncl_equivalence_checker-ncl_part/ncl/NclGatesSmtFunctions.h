@@ -1,3 +1,5 @@
+//This header file
+
 #ifndef NCL_GATES_SMT_FUNCTIONS_H
 #define NCL_GATES_SMT_FUNCTIONS_H
 #include <stdint.h>
