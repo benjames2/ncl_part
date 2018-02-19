@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1518148503 source:c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\main.c
+1518806564 source:c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\main.c
 	<stdio.h>
 	<stdlib.h>
 	<stdint.h>
@@ -9,10 +9,10 @@
 	"NclGatesSmtFunctions.h"
 	"PrintingFunctions.h"
 
-1517458796 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\gatelogic.h
+1518806564 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\gatelogic.h
 	<stdint.h>
 
-1517457753 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\readnetlistandinput.h
+1518806564 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\readnetlistandinput.h
 	<stdint.h>
 
 1518201269 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
@@ -21,7 +21,7 @@
 1517715474 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatesfunctons.h
 	<stdint.h>
 
-1518147674 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatessmtfunctions.h
+1518806564 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatessmtfunctions.h
 	<stdint.h>
 
 1518754412 source:c:\users\julian\documents\jt's folder\ncl repo\ncl_part\ncl_equivalence_checker-ncl_part\ncl\main.c
