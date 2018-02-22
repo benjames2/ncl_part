@@ -521,7 +521,9 @@
 (define-fun wire3(_ BitVec1))
 (define-fun wire4(_ BitVec1))
 
-(let ((wire5 (THand0 cs_5 wire1 wire2 wire3 wire4))
-(let ((wire6 (TH22 cs_6 wire3 wire4))))
+(let ((wire7 (TH23 cs_7 wire1 wire3 wire5))
+(let ((wire8 (TH23 cs_8 wire2 wire4 wire6))
+(let ((wire9 (TH34w2 cs_9 wire8 wire3 wire5 wire1))
+(let ((wire10 (TH34w2 cs_10 wire7 wire6 wire4 wire2))))
 
 

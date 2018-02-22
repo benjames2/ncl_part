@@ -21,7 +21,7 @@
 int main(int argc, char *argv[])
 {
     //Creates a character array (string) called netlist.txt to store in filename
-    char filename[] = "netlist.txt";
+    char filename[] = "netlist_nclfulladder.txt";
     //Creates a string called inputs_list.txt to store in inputFilename
     char inputFilename[] = "input_list.txt";
 
