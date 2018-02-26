@@ -4,6 +4,7 @@
 #ifndef GATE_LOGIC_H
 #define GATE_LOGIC_H
 #include <stdint.h>
+#define MAX_SIZE 1000 //Sets global variable MAX_SIZE to 1000 for gateStorage
 
 
 //Declares an enumerated type GATE_LOGIC.
@@ -47,6 +48,14 @@ GATE_IO InitializeGateLogic(GATE_LOGIC g, uint16_t num_in, uint16_t bitsize, uin
   temp.wire_out = wire_out;
   temp.flag = flag;
   return temp;
+}
+
+void InitializeGateStorage(GATE_IO *gateStorage, int size)
+{
+    int i = 0;
+    for (i = 0; i < size; i++){
+        gateStorage[i] = InitializeGateLogic(0,0,0,0,0,0);
+    }
 }
 
 #endif
