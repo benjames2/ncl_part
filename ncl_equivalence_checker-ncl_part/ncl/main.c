@@ -41,7 +41,6 @@ int main(int argc, char *argv[])
     readInputList(syncinputFilename);
     printSyncInputDeclaration(gateStorage, MAX_SIZE);
 
-  //  /*
     InitializeGateStorage(gateStorage, MAX_SIZE);
     readNetlist(nclfilename);
 
@@ -61,6 +60,5 @@ int main(int argc, char *argv[])
     InitializeGateStorage(gateStorage, MAX_SIZE);
     readOutputList(outputlist);
     generateProperties(gateStorage, MAX_SIZE);
-   // */
     return 0;
 }
