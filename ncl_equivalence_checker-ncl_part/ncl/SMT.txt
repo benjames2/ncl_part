@@ -535,3 +535,9 @@
 (let ((wire7 (bvand wire2 wire1))
 (let ((wire8 (bvxor wire4 wire3))
 (let ((wire9 (bvor wire5 wire6 wire7))))
+
+(implies(and (= ncl_wire10 (not ncl_wire9))
+             (= ncl_wire10 wire8)
+             (= ncl_wire8 (not ncl_wire7))
+             (= ncl_wire8 wire9)
+             
