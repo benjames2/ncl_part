@@ -577,7 +577,7 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
 
     }
 
-    for (i = 0; i <= MAX_SIZE; i++){//Goes through the entire global array and looks for info on each element/gate
+    for (i = 0; i <= size; i++){//Goes through the entire global array and looks for info on each element/gate
         if(a[i].bit_size != 0){
             if(a[i].gate != 0){                                                    //format for every other gate
                 fprintf(fp, "%s" "%i ", wire, i);//prints off first part of nested let statement
@@ -607,4 +607,41 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
     fclose(fp);//Close the file
 }
 
+
+void generateProperties (GATE_IO *a, int size)
+
+{
+    int i;
+    char implies[] = "(implies (and ";
+    char wire[] = "wire";
+    char ncl_wire[] = "ncl_wire";
+    char opening[] = "(=";
+    char closing[] = "))";
+    char closing2[] = ")";
+    char space[] = "              ";
+    char not[] = "(not ncl_wire";
+
+
+    FILE *fp;//Creates a file pointer used for writing the SMT statements for the given netlist and inputs list
+    fp = fopen("SMT.txt", "a");//This opens the output text file SMT.txt.  It appends to the file with "a"
+
+    if (fp == NULL)//File open exception
+    {
+        printf("Cannot open file \n");
+        exit;
+    }
+
+    fprintf(fp, "\n%s", implies);
+
+    for (i = 0; i <= size; i++){
+        if(a[i].bit_size != 0){
+            fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], not, a[i].wire_in[0], closing);
+            fprintf(fp, "%s", space);
+            fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
+            fprintf(fp, "%s", space);
+        }
+    }
+
+    fclose(fp);//Close the file
+}
 #endif

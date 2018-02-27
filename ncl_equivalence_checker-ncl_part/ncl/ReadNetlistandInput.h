@@ -148,4 +148,61 @@ void readNetlist(char *filename){
     if (line)//Done after each line is read into the program
         free(line);//Frees up the array that stores the characters of each line so that it can then store the next available line.
 }
+
+void readOutputList(char *filename){
+
+    FILE * fp; //Creates a file pointer which will be used in reading the text from the netlist
+    char * token;  //Creates a character pointer token, which will be used to identify elements of the text file
+
+    int input; //Holds information on input of gate
+    int numOfInputs;  //Counts the number of inputs
+    int output; //Identifies the output of the gate
+    int syncOutput; //Identifies the gate type of a given gate
+    int bitSize; //Identifies bit vector size
+    int z = 0;//Counter variable for token variable to select an element of each line of the text file
+
+    fp = fopen(filename, "r");//Opens the text file containing the netlist and sets it to File pointer fp
+
+    if (fp == NULL)//File open exception handler
+        exit(EXIT_FAILURE);
+
+    char line[256];  //Array that contains the characters of the inputs list.
+                   //Each line will get 256 possible characters it can store.
+
+     //While loop does the reading of the inputs list, line by line, for the size of the array line
+    while (fgets(line, sizeof(line), fp)) {
+        z = 0;
+        numOfInputs = 0;
+        uint16_t *getwire_in = (uint16_t *) malloc(sizeof(uint16_t));  //Allocates memory (16 bits) to store input wires
+        printf("%s\n", line);//Prints off a string that contains the text from each line of the netlist
+        token = strtok(line, " ");//Sets the character variable token to delimit elements of the text file by a space
+
+        while (token) {//While token is equal to a value other than NULL
+
+              if (z == 0){//Identifies the gate type of each line/gate, which is given by the first element
+                syncOutput = atoi(token);//Converts the character from the text file to an integer value
+                printf("SyncOutput is: %d\n", syncOutput);//Prints to the console the gatetype ID number
+              }
+
+              else if (z > 0){//Identifies the input(s) of each gate/line
+                input = atoi(token);
+                getwire_in[numOfInputs] = input;//Stores the input in an array for wires in
+                numOfInputs++;//Counts the number of inputs
+                printf("NCLoutputRail%d is: %d\n", numOfInputs - 1, input);//Prints off the current number wire and its count
+              }
+
+            z++; //increments the element the character pointer token will read
+            token = strtok(NULL, " ");//Sets the character variable token to delimit elements of the text file by a space
+        }
+
+        gateStorage[syncOutput] = InitializeGateLogic(0, numOfInputs, 1, getwire_in, syncOutput, 0);//Stores each value into a structure in our global structure array
+        printf("\n");
+
+    }
+
+    fclose(fp);//Close the file
+
+    if (line)//Done after each line is read into the program
+        free(line);//Frees up the array that stores the characters of each line so that it can then store the next available line.
+}
 #endif

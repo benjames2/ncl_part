@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
 
     char syncinputFilename[] = "sync_input_list.txt";
 
+    char outputlist[] = "output.txt";
+
     //Passes the filenames to the readInputList and readNetlist header files to read the netlist and
     //inputs list text files
 
@@ -55,6 +57,10 @@ int main(int argc, char *argv[])
     readNetlist(syncfilename);
     printSynchronousSmt(gateStorage, MAX_SIZE);
     printSynchronousArrayStruct(gateStorage, MAX_SIZE);
+
+    InitializeGateStorage(gateStorage, MAX_SIZE);
+    readOutputList(outputlist);
+    generateProperties(gateStorage, MAX_SIZE);
    // */
     return 0;
 }
