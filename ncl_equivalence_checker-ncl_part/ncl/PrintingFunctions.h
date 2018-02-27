@@ -612,13 +612,21 @@ void generateProperties (GATE_IO *a, int size)
 
 {
     int i;
+<<<<<<< HEAD
     char implies[] = "(implies (and ";
+=======
+    char implies[] = "(implies(and ";
+>>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
     char wire[] = "wire";
     char ncl_wire[] = "ncl_wire";
     char opening[] = "(=";
     char closing[] = "))";
     char closing2[] = ")";
+<<<<<<< HEAD
     char space[] = "              ";
+=======
+    char space[] = "             ";
+>>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
     char not[] = "(not ncl_wire";
 
 
