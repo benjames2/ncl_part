@@ -17,10 +17,18 @@
 
 1519696929 D
 
+<<<<<<< HEAD
 1519932572 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
 	<stdint.h>
 
 1519931376 112d4aaf1783b2c4ea57069bdff7267c10a3e
+=======
+<<<<<<< HEAD
+1519932572 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
+=======
+1519931376 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
+>>>>>>> 3ff112d4aaf1783b2c4ea57069bdff7267c10a3e
+>>>>>>> dae10c01b6d111412af05febe1ef5619f1cd7fb6
 	<stdint.h>
 
 1519696929 c29ea5e8ad8af8f49e5f238b64a6a8359ba66
