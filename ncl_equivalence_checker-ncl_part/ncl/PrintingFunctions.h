@@ -611,15 +611,32 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
 void generateProperties (GATE_IO *a, int size)
 
 {
+<<<<<<< HEAD
     int i, numberOfOutput;
     char implies[] = "(implies(and ";
+=======
+    int i;
+<<<<<<< HEAD
+    char implies[] = "(implies (and ";
+=======
+    char implies[] = "(implies(and ";
+>>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
+>>>>>>> 78fea71aae65015bfc6ca0ca4d6834f79acfe04d
     char wire[] = "wire";
     char ncl_wire[] = "ncl_wire";
     char opening[] = "(=";
     char closing[] = "))";
     char closing2[] = ")";
+<<<<<<< HEAD
     char closing3[] = ")))";
     char space[] = "             ";
+=======
+<<<<<<< HEAD
+    char space[] = "              ";
+=======
+    char space[] = "             ";
+>>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
+>>>>>>> 78fea71aae65015bfc6ca0ca4d6834f79acfe04d
     char not[] = "(not ncl_wire";
 
 
