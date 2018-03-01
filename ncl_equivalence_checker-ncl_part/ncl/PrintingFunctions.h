@@ -611,13 +611,14 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
 void generateProperties (GATE_IO *a, int size)
 
 {
-    int i;
+    int i, numberOfOutput;
     char implies[] = "(implies(and ";
     char wire[] = "wire";
     char ncl_wire[] = "ncl_wire";
     char opening[] = "(=";
     char closing[] = "))";
     char closing2[] = ")";
+    char closing3[] = ")))";
     char space[] = "             ";
     char not[] = "(not ncl_wire";
 
@@ -631,14 +632,29 @@ void generateProperties (GATE_IO *a, int size)
         exit;
     }
 
+    for(i = 0; i < size; i++){//This loops through the global structure array and counts the total number of gates
+        if((a[i].bit_size != 0) && (a[i].gate != 0)){
+            numberOfOutput++;
+        }
+
+    }
+
     fprintf(fp, "\n%s", implies);
 
     for (i = 0; i <= size; i++){
         if(a[i].bit_size != 0){
+            numberOfOutput--;
             fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], not, a[i].wire_in[0], closing);
             fprintf(fp, "%s", space);
-            fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
-            fprintf(fp, "%s", space);
+            if(numberOfOutput == 0){
+                fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing3);
+                fprintf(fp, "%s", space);
+            }
+            else{
+                fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
+                fprintf(fp, "%s", space);
+            }
+
         }
     }
 
