@@ -15,20 +15,14 @@
 1519690396 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\readnetlistandinput.h
 	<stdint.h>
 
-<<<<<<< HEAD
-1519690396 D
+1519696929 D
 
-1519930727 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
+1519931376 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
 	<stdint.h>
 
 1519696929 c29ea5e8ad8af8f49e5f238b64a6a8359ba66
-=======
-<<<<<<< HEAD
-1519697264 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
-=======
-1519696929 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\printingfunctions.h
->>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
->>>>>>> 78fea71aae65015bfc6ca0ca4d6834f79acfe04d
+
+1519696929 ea71aae65015bfc6ca0ca4d6834f79acfe04d
 	<stdint.h>
 
 1517715474 c:\users\james\documents\codeblocksprojects\ncl_equivalence_checker-ncl_part\ncl_equivalence_checker-ncl_part\ncl\nclgatesfunctons.h
