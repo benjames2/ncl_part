@@ -1,516 +1,111 @@
 ; SMT functions for NCL Gates
 
-------------------------------------------------------------------------------------------------
+; TH22 NCL Gate (A*B)
+(set-logic QF_BV)
 
-; TH12 NCL Gate (A + B)
-; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1.
-; cs : current state
-; i0, i1 : inputs
+;Inputs
+(declare-fun cs () (_ BitVec 1))
+(declare-fun w () (_ BitVec 1))
+(declare-fun x () (_ BitVec 1))
+(declare-fun y () (_ BitVec 1))
+(declare-fun z () (_ BitVec 1))
 
-(define-fun TH12 ((Bool cs) (Bool i0) (Bool i1)) Bool
-	(ite
-		(or i0 i1)	
-		true									
+
+
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
+
+(define-fun TH12 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) ) (_ BitVec 1)
+				
 		(ite									
-			(and (not i0) (not i1))			
-			false								
-			cs								
+			(and (= a (_ bv0 1)) (= b (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= a (_ bv1 1)) (= b (_ bv0 1))) (_ bv1 1)
+						(ite
+							(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+							( ite 
+								(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1) cs
+							) 
+						)
+				)
+				
 		)
-	)
+			
 )
 
-------------------------------------------------------------------------------------------------
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
 
-; TH22 NCL Gate (AB)
-; This funtion finds the next state of the output of a 2 input NCL gate with threshold 2.
-; cs : current state
-; i0, i1 : inputs
-
-(define-fun TH22 ((Bool cs) (Bool i0) (Bool i1)) Bool
-	(ite
-		(and i0 i1)	
-		true									
+(define-fun TH22 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) ) (_ BitVec 1)
+				
 		(ite									
-			(and (not i0) (not i1))			
-			false								
-			cs								
+			(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+				( ite 
+					(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1) cs) 
+			
+			)
+			
 		)
-	)
-)
 
-------------------------------------------------------------------------------------------------
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
 
-; TH13 NCL Gate (A + B + C)
-; This funtion finds the next state of the output of a 3 input NCL gate with threshold 1.
-; cs : current state
-; i0, i1, i2 : inputs
-
-(define-fun TH13 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
-	(ite
-		(or i0 i1 i2)	
-		true									
+(define-fun TH23 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) ) (_ BitVec 1)
+				
 		(ite									
-			(and (not i0) (not i1) (not i2))			
-			false								
-			cs								
+			(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= a (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+						(ite
+							(and (= b (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+							( ite 
+								(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1)
+								( ite 
+									(and (= a (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1)
+										( ite 
+											(and (= b (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1) cs
+										) 
+								) 
+							)
+								
+						)
+				)
+				
 		)
-	)
+			
 )
 
-------------------------------------------------------------------------------------------------
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
 
-; TH23 NCL Gate (AB + AC + BC)
-; This funtion finds the next state of the output of a 3 input NCL gate with threshold 2.
-; cs : current state
-; i0, i1, i2 : inputs
-
-(define-fun TH23 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i1 i2))	
-		true									
+(define-fun TH34w2 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) ) (_ BitVec 1)
+				
 		(ite									
-			(and (not i0) (not i1) (not i2))			
-			false								
-			cs								
+			(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= a (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+						(ite
+							(and (= a (_ bv1 1)) (= d (_ bv1 1))) (_ bv1 1)
+								( ite 
+									(and (= b (_ bv1 1)) (= c (_ bv1 1)) (= d (_ bv1 1))) (_ bv1 1)
+										( ite 
+											(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1)
+												( ite 
+													(and (= a (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1)
+														( ite 
+															(and (= a (_ bv0 1)) (= d (_ bv0 1))) (_ bv0 1)
+																( ite 
+																	(and (= b (_ bv0 1)) (= c (_ bv0 1)) (= d (_ bv0 1))) (_ bv0 1) cs
+																) 
+														) 
+												)
+								
+										)
+								)
+				
+						)
+				)
 		)
-	)
 )
 
-------------------------------------------------------------------------------------------------
-
-; TH33 NCL Gate (ABC)
-; This funtion finds the next state of the output of a 3 input NCL gate with threshold 3.
-; cs : current state
-; i0, i1, i2 : inputs
-
-(define-fun TH33 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
-	(ite
-		(and i0 i1 i2)	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH23W2 NCL Gate (A + BC)
-; This funtion finds the next state of the output of a 3 input NCL gate with threshold 2 and weight 2.
-; cs : current state
-; i0, i1, i2 : inputs
-
-(define-fun TH23w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
-	(ite
-		(or i0 (and i1 i2))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH33W2 NCL Gate (AB + AC)
-; This funtion finds the next state of the output of a 3 input NCL gate with threshold 3 and weight 2.
-; cs : current state
-; i0, i1, i2 : inputs
-
-(define-fun TH33w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH14 NCL Gate (A + B + C + D)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 1.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH14 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or i0 i1 i2 i3)	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH24 NCL Gate (AB + AC + AD + BC + BD + CD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH24 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i2) (and i1 i3) (and i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH34 NCL Gate (ABC + ABD + ACD + BCD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 3.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH34 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1 i2) (and i0 i1 i3) (and i0 i2 i3) (and i1 i2 i3))	  ; if 3 or more inputs assert
-		true									                              ; assert output
-		(ite									                              ; else
-			(and (not i0) (not i1) (not i2) (not i3))			              ; if all inputs deassert
-			false								                              ; deassert output
-			cs								                                  ; else output doesn't change
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH44 NCL Gate (ABCD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 4.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH44 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(and i0 i1 i3 i4)	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH24W2 NCL Gate (A + BC + BD + CD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 2 and weight 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH24w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or i0 (and i1 i2) (and i1 i3) (and i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH34W2 NCL Gate (AB + AC + AD + BCD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 3 and weight 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH34w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH44W2 NCL Gate (ABC + ABD + ACD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 4 and weight 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH44w2 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1 i2) (and i0 i1 i3) (and i0 i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH34W3 NCL Gate (A + BCD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 3 and weight 3.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH34w3 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or i0 (and i1 i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH44W3 NCL Gate (AB + AC + AD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 4 and weight 3.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH44w3 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i0 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH24W22 NCL Gate (A + B + CD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 2 and weight of 2 and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH24w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or i0 i1 (and i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH34W22 NCL Gate (AB + AC + AD + BC + BD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 3 and weight of 2 and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH34w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i2) (and i1 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH44W22 NCL Gate (AB + ACD + BCD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 4 and weight of 2 and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH44w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2 i3) (and i1 i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH54W22 NCL Gate (ABC + ABD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 5 and weight of 2 and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH54w22 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1 i2) (and i0 i1 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH34W32 NCL Gate (A + BC + BD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 3 and weight of 3 and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH34w32 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or i0 (and i1 i2) (and i1 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH54W32 NCL Gate (AB + ACD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 5 and weight of 3 and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH54w32 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH44W322 NCL Gate (AB + AC + AD + BD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 4 and weight of 3, 2, and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH44w322 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i0 i3) (and i1 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH54W322 NCL Gate (AB + AC + BCD)
-; This funtion finds the next state of the output of a 4 input NCL gate with threshold 5 and weight of 3, 2, and 2.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH54w322 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i0 i2) (and i1 i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; THxor0 NCL Gate (AB + CD)
-; This funtion finds the next state of the output of a 4 input NCL gate.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun THxor0 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i2 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; THand0 NCL Gate (AB + BC + AD)
-; This funtion finds the next state of the output of a 4 input NCL gate.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun THand0 ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i1) (and i1 i2) (and i0 i3))	
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
-
-; TH24comp NCL Gate (AC + BC + AD + BD)
-; This funtion finds the next state of the output of a 4 input NCL gate.
-; cs : current state
-; i0, i1, i2, i3 : inputs
-
-(define-fun TH24comp ((Bool cs) (Bool i0) (Bool i1) (Bool i2) (Bool i3)) Bool
-	(ite
-		(or (and i0 i2) (and i1 i2) (and i0 i3) (and i1 i3))
-		true									
-		(ite									
-			(and (not i0) (not i1) (not i2) (not i3))			
-			false								
-			cs								
-		)
-	)
-)
-
-------------------------------------------------------------------------------------------------
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------
