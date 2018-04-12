@@ -3,6 +3,7 @@
 #ifndef PRINTING_FUNCTIONS_H
 #define PRINTING_FUNCTIONS_H
 #include <stdint.h>
+int NumOfParenthesis = 0;
 
 
 const char *printSynchronousGateType(int a){
@@ -357,6 +358,22 @@ void printNclArrayStruct(GATE_IO *a, int size){//Prints off information on each 
 
 }
 
+void printAssert()
+{
+    FILE *fp;//Creates a file pointer used for writing the SMT statements for the given netlist and inputs list
+    fp = fopen("SMT.txt", "a");//This opens the output text file SMT.txt.  It appends to the file with "a"
+
+    if (fp == NULL)//File open exception
+    {
+        printf("Cannot open file \n");
+        exit;
+    }
+
+    fprintf(fp, "(assert\n\n");
+    fprintf(fp, "   (not\n\n");
+    fclose(fp);//Close the file
+}
+
 void printSynchronousArrayStruct(GATE_IO *a, int size){//Prints off information on each line of the netlist to the console
 
     int i;
@@ -397,11 +414,14 @@ void printNclInputDeclaration(GATE_IO *a, int size)
     int numberOfGates = 0;  //This variable is used to count the total number of gates
 
     //Declaring an array of strings for declaring the variables
-    char def[] = "(define-fun ncl_wire"; //This declares a string that will be held for each input declaration to the SMT file
+    char def[] = "(declare-fun ncl_wire"; //This declares a string that will be held for each input declaration to the SMT file
+    char def2[] = "(declare-fun ";
     char bitvec[] = "(_ BitVec";//This is used for the bit vectors
     char closing[] = "))";//This closes SMT statements
-
+    char parenthesis[] = "()";
     char getfuncSymbol[12];//Array for holding the function symbols for SMT statement
+    char nclfilename[] = "ncl_netlist.txt";
+    char cs[] = "cs_";
 
     FILE *fp;//Creates a file pointer used for writing the SMT statements for the given netlist and inputs list
     fp = fopen("SMT.txt", "a");//This opens the output text file SMT.txt.  It appends to the file with "a"
@@ -422,9 +442,18 @@ void printNclInputDeclaration(GATE_IO *a, int size)
     for(i = 0; i <= MAX_SIZE; i++){                         //Goes through all the gate storage and look for inputs to be declared
         if(a[i].bit_size != 0){                       //looks for gate storage that actually holds something
             if(a[i].gate == 0){                      //looks for the inputs
-                fprintf(fp, "%s" "%i" "%s" "%i" "%s", def, i, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
+                fprintf(fp, "%s" "%i" "%s " "%s" "%i" "%s", def, i, parenthesis, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
                 fprintf(fp, "\n");//does a new line for each write to the SMT text file
             }
+        }
+    }
+
+    InitializeGateStorage(gateStorage, MAX_SIZE);
+    readNetlist(nclfilename);
+
+    for(i = 0; i <= MAX_SIZE; i++){                         //Goes through all the gate storage and look for inputs to be declared
+        if((a[i].bit_size != 0) && (a[i].gate != 0)){                       //looks for gate storage that actually holds something
+                fprintf(fp, "%s" "%s " "%i" "() " "%s" "%i" "%s\n", def2, cs, a[i].wire_out, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
         }
     }
 
@@ -444,8 +473,8 @@ void printNclSmt(GATE_IO *a, int size)//This function writes the SMT statements 
 
     //Declaring an array of strings for declaring the variables
     char cs[] = "cs_";//This is used for defining the current state (cs) wires of the NCL circuit
-    char closing1[] = "))";//This closes SMT statements
-    char closing2[] = "))))";//This closes SMT statements
+    char closing1[] = ")))";//This closes SMT statements
+    char closing2[] = ")))";//This closes SMT statements
     char wire[] = "(let ((ncl_wire";//This is used for the let statements
     char wire2[] = "ncl_wire";//Used for wires
     char getfuncSymbol[12];//Array for holding the function symbols for SMT statement
@@ -468,9 +497,13 @@ void printNclSmt(GATE_IO *a, int size)//This function writes the SMT statements 
         }
 
     }
+
+    NumOfParenthesis += numberOfGates;
+
     for (i = 0; i <= MAX_SIZE; i++){//Goes through the entire global array and looks for info on each element/gate
         if(a[i].bit_size != 0){
             if(a[i].gate != 0){                                                    //format for every other gate
+                fprintf(fp, "       ");
                 fprintf(fp, "%s" "%i ", wire, i);//prints off first part of nested let statement
                 strcpy(getfuncSymbol, printNclFunctionSymbol(a[i].gate));//copies the string from the given gate in the global array and stores it in getfuncSymbol
                 fprintf(fp, "%s", getfuncSymbol);//Prints off the gate function symbol to the SMT file
@@ -487,11 +520,11 @@ void printNclSmt(GATE_IO *a, int size)//This function writes the SMT statements 
                     numberOfGates--;    //keeps track of the number of gates so it knows when to close
 
                     if(numberOfGates == 0){//When the count of the number of gates is 0 print off the closing parentheses
-                        fprintf(fp, "%s" "\n", closing2);
+                        fprintf(fp, "%s" "\n\n", closing2);
                         exit = 0;
                     }
                     else{//If it isn't done then close the current function and start a new line
-                        fprintf(fp, "%s" "\n", closing1);
+                        fprintf(fp, "%s" "\n\n", closing1);
                     }
             }
     }
@@ -506,9 +539,10 @@ void printSyncInputDeclaration(GATE_IO *a, int size)
     int numberOfGates = 0;  //This variable is used to count the total number of gates
 
     //Declaring an array of strings for declaring the variables
-    char def[] = "(define-fun wire"; //This declares a string that will be held for each input declaration to the SMT file
+    char def[] = "(declare-fun wire"; //This declares a string that will be held for each input declaration to the SMT file
     char bitvec[] = "(_ BitVec";//This is used for the bit vectors
     char closing[] = "))";//This closes SMT statements
+    char parenthesis[] = "()";
 
     char getfuncSymbol[12];//Array for holding the function symbols for SMT statement
 
@@ -531,7 +565,7 @@ void printSyncInputDeclaration(GATE_IO *a, int size)
     for(i = 0; i <= MAX_SIZE; i++){                         //Goes through all the gate storage and look for inputs to be declared
         if(a[i].bit_size != 0){                       //looks for gate storage that actually holds something
             if(a[i].gate == 0){                      //looks for the inputs
-                fprintf(fp, "%s" "%i" "%s" "%i" "%s", def, i, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
+                fprintf(fp, "%s" "%i" "%s " "%s" "%i"  "%s", def, i, parenthesis, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
                 fprintf(fp, "\n");//does a new line for each write to the SMT text file
             }
         }
@@ -555,8 +589,8 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
     //Declaring an array of strings for declaring the variables
     char wire[] = "(let ((wire";//This is used for the let statements
     char wire2[] = "wire";//Used for wires
-    char closing1[] = "))";//This closes SMT statements
-    char closing2[] = "))))";//This closes SMT statements
+    char closing1[] = ")))";//This closes SMT statements
+    char closing2[] = ")))";//This closes SMT statements
     char getfuncSymbol[12];//Array for holding the function symbols for SMT statement
 
     FILE *fp;//Creates a file pointer used for writing the SMT statements for the given netlist and inputs list
@@ -577,9 +611,12 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
 
     }
 
+    NumOfParenthesis += numberOfGates;
+
     for (i = 0; i <= size; i++){//Goes through the entire global array and looks for info on each element/gate
         if(a[i].bit_size != 0){
             if(a[i].gate != 0){                                                    //format for every other gate
+                fprintf(fp, "       ");
                 fprintf(fp, "%s" "%i ", wire, i);//prints off first part of nested let statement
                 strcpy(getfuncSymbol, printSynchronousFunctionSymbol(a[i].gate));//copies the string from the given gate in the global array and stores it in getfuncSymbol
                 fprintf(fp, "%s", getfuncSymbol);//Prints off the gate function symbol to the SMT file
@@ -595,11 +632,11 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
                     numberOfGates--;    //keeps track of the number of gates so it knows when to close
 
                     if(numberOfGates == 0){//When the count of the number of gates is 0 print off the closing parentheses
-                        fprintf(fp, "%s" "\n", closing2);
+                        fprintf(fp, "%s" "\n\n", closing2);
                         exit = 0;
                     }
                     else{//If it isn't done then close the current function and start a new line
-                        fprintf(fp, "%s" "\n", closing1);
+                        fprintf(fp, "%s" "\n\n", closing1);
                     }
             }
     }
@@ -611,24 +648,23 @@ void printSynchronousSmt(GATE_IO *a, int size)//This function writes the SMT sta
 void generateProperties (GATE_IO *a, int size)
 
 {
-    int i;
-<<<<<<< HEAD
-    char implies[] = "(implies (and ";
-=======
-    char implies[] = "(implies(and ";
->>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
+    int i, numberOfOutput, numOfElement;
+    char implies[] = "(=> (and ";
     char wire[] = "wire";
     char ncl_wire[] = "ncl_wire";
-    char opening[] = "(=";
+    char andnot[] = "(not (and (=";
+    char bv[] = "(_ bv1 1))";
+    char bvnot[] = "(bvnot ";
+    char opening[] = "(= ";
     char closing[] = "))";
     char closing2[] = ")";
-<<<<<<< HEAD
-    char space[] = "              ";
-=======
-    char space[] = "             ";
->>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66
+    char closing3[] = ")))";
+    char space[] = "                ";
+    char space1[] = "           ";
     char not[] = "(not ncl_wire";
-
+    char input[] = "input.txt";
+    char output[] = "output.txt";
+    char getval[] = "(get-value(";
 
     FILE *fp;//Creates a file pointer used for writing the SMT statements for the given netlist and inputs list
     fp = fopen("SMT.txt", "a");//This opens the output text file SMT.txt.  It appends to the file with "a"
@@ -639,14 +675,93 @@ void generateProperties (GATE_IO *a, int size)
         exit;
     }
 
-    fprintf(fp, "\n%s", implies);
+    InitializeGateStorage(gateStorage, MAX_SIZE);
+    readOutputList(input);
+
+    for(i = 0; i < size; i++){//This loops through the global structure array and counts the total number of gates
+        if((a[i].bit_size != 0) && (a[i].gate != 0)){
+            numberOfOutput++;
+        }
+
+    }
+
+    fprintf(fp, "\n       " "%s", implies);
+
+        for (i = 0; i <= size; i++){//Generate properties to check that the input of the NCL circuit are valid (both rails can't be 1)
+        if(a[i].bit_size != 0){     //and also that the inputs that are being fed to the synchronous circuit are the same as the one
+            numberOfOutput--;       //being fed to the NCL circuit
+            fprintf(fp, "%s " "%s" "%d " "%s " "%s" "%s" "%d " "%s" "%s\n", andnot, ncl_wire, a[i].wire_in[1], bv, opening, ncl_wire, a[i].wire_in[0], bv, closing);
+            fprintf(fp, "%s", space);
+            fprintf(fp,"%s" "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
+            fprintf(fp, "%s", space);
+        }
+    }
+
+
+    InitializeGateStorage(gateStorage, MAX_SIZE);
+    readOutputList(output);
+    numberOfOutput = 0;
+
+        for(i = 0; i < size; i++){//This loops through the global structure array and counts the total number of gates
+        if((a[i].bit_size != 0) && (a[i].gate == 0)){
+            numberOfOutput++;
+        }
+    }
+    numOfElement = numberOfOutput;
+
+        for (i = 0; i <= size; i++){
+        if(a[i].bit_size != 0){
+            numberOfOutput--;
+            if (numberOfOutput != 0){
+                fprintf(fp, "%s" "%s" "%d " "%s" "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], bvnot, ncl_wire, a[i].wire_in[0], closing);
+                fprintf(fp, "%s", space);
+            }
+            else{
+                fprintf(fp, "%s" "%s" "%d " "%s" "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], bvnot, ncl_wire, a[i].wire_in[0], closing3);
+                fprintf(fp, "%s", space1);
+            }
+
+        }
+    }
+
+    fprintf(fp, "(and\n" "%s", space);
+
+
+        for (i = 0; i <= size; i++){
+        if(a[i].bit_size != 0){
+            numOfElement--;
+            if (numOfElement != 0){
+                fprintf(fp, "%s" "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
+                fprintf(fp, "%s", space);
+            }
+            else {
+                fprintf(fp, "%s" "%s" "%d " "%s" "%d" "%s", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
+            }
+        }
+    }
+
+    for(i = 0; i < NumOfParenthesis + 4; i++)
+        {
+            fprintf(fp, ")");
+        }
+
+    fprintf(fp, "\n\n");
+    fprintf(fp, "(check-sat)\n");
+    fprintf(fp, "(get-model)\n");
+
+    InitializeGateStorage(gateStorage, MAX_SIZE);
+    readOutputList(input);
 
     for (i = 0; i <= size; i++){
         if(a[i].bit_size != 0){
-            fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], not, a[i].wire_in[0], closing);
-            fprintf(fp, "%s", space);
-            fprintf(fp, "%s " "%s" "%d " "%s" "%d" "%s\n", opening, ncl_wire, a[i].wire_in[1], wire, i, closing2);
-            fprintf(fp, "%s", space);
+                fprintf(fp, "%s" "%s" "%d" "%s\n", getval, ncl_wire, a[i].wire_in[0], closing);
+                fprintf(fp, "%s" "%s" "%d" "%s\n", getval, ncl_wire, a[i].wire_in[1], closing);
+        }
+    }
+
+    for (i = 0; i <= size; i++){
+        if(a[i].bit_size != 0){
+                fprintf(fp, "%s" "%s" "%d" "%s\n", getval, wire, i, closing);
         }
     }
 

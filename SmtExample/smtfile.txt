@@ -1,5 +1,3 @@
-; SMT functions for NCL Gates
-
 ; TH22 NCL Gate (A*B)
 (set-logic QF_BV)
 
@@ -108,51 +106,13 @@
 		)
 )
 
-;-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-(declare-fun ncl_wire1() (_ BitVec1))
-(declare-fun ncl_wire2() (_ BitVec1))
-(declare-fun ncl_wire3() (_ BitVec1))
-(declare-fun ncl_wire4() (_ BitVec1))
-(declare-fun cs_ 5() (_ BitVec1))
-(declare-fun cs_ 6() (_ BitVec1))
-(declare-fun cs_ 7() (_ BitVec1))
-(declare-fun cs_ 8() (_ BitVec1))
-(declare-fun wire1() (_ BitVec1))
-(declare-fun wire2() (_ BitVec1))
+	
 
-(assert
-
-   (not
-
-       (let ((ncl_wire5 (TH24comp cs_5 ncl_wire4 ncl_wire1 ncl_wire2 ncl_wire3 ncl_wire27167)))
-
-       (let ((ncl_wire6 (TH24comp cs_6 ncl_wire4 ncl_wire2 ncl_wire3 ncl_wire1)))
-
-       (let ((ncl_wire7 (TH12 cs_7 ncl_wire4 ncl_wire2)))
-
-       (let ((ncl_wire8 (TH22 cs_8 ncl_wire3 ncl_wire1)))
-
-
-       (let ((wire3 (bvxor wire1 wire2)))
-
-       (let ((wire4 (bvand wire1 wire2)))
-
-
-       (=> (and (not (and (= ncl_wire2 (_ bv1 1)) (= ncl_wire1 (_ bv1 1))))
-                (= ncl_wire2 wire1)
-                (not (and (= ncl_wire4 (_ bv1 1)) (= ncl_wire3 (_ bv1 1))))
-                (= ncl_wire4 wire2)
-                (= ncl_wire5 (bvnot ncl_wire6))
-                (= ncl_wire7 (bvnot ncl_wire8)))
-           (and
-                (= ncl_wire5 wire3)
-                (= ncl_wire7 wire4)))))))))))
 
 (check-sat)
 (get-model)
-(get-value(ncl_wire1))
-(get-value(ncl_wire2))
-(get-value(ncl_wire3))
-(get-value(ncl_wire4))
-(get-value(wire1))
-(get-value(wire2))
+(get-value(cs))
+(get-value(x))
+(get-value(y))
+(get-value(out))
+
