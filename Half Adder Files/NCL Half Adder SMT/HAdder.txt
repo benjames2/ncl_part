@@ -1,0 +1,186 @@
+; SMT functions for NCL Gates
+
+; TH22 NCL Gate (A*B)
+(set-logic QF_BV)
+
+;Inputs
+(declare-fun cs () (_ BitVec 1))
+(declare-fun w () (_ BitVec 1))
+(declare-fun x () (_ BitVec 1))
+(declare-fun y () (_ BitVec 1))
+(declare-fun z () (_ BitVec 1))
+
+
+
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
+
+(define-fun TH12 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) ) (_ BitVec 1)
+				
+		(ite									
+			(and (= a (_ bv0 1)) (= b (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= a (_ bv1 1)) (= b (_ bv0 1))) (_ bv1 1)
+						(ite
+							(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+							( ite 
+								(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1) cs
+							) 
+						)
+				)
+				
+		)
+			
+)
+
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
+
+(define-fun TH22 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) ) (_ BitVec 1)
+				
+		(ite									
+			(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+				( ite 
+					(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1) cs) 
+			
+			)
+			
+		)
+
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
+
+(define-fun TH23 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) ) (_ BitVec 1)
+				
+		(ite									
+			(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= a (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+						(ite
+							(and (= b (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+							( ite 
+								(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1)
+								( ite 
+									(and (= a (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1)
+										( ite 
+											(and (= b (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1) cs
+										) 
+								) 
+							)
+								
+						)
+				)
+				
+		)
+			
+)
+
+; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b : inputs
+
+(define-fun TH34w2 ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) ) (_ BitVec 1)
+				
+		(ite									
+			(and (= a (_ bv1 1)) (= b (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= a (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+						(ite
+							(and (= a (_ bv1 1)) (= d (_ bv1 1))) (_ bv1 1)
+								( ite 
+									(and (= b (_ bv1 1)) (= c (_ bv1 1)) (= d (_ bv1 1))) (_ bv1 1)
+										( ite 
+											(and (= a (_ bv0 1)) (= b (_ bv0 1))) (_ bv0 1)
+												( ite 
+													(and (= a (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1)
+														( ite 
+															(and (= a (_ bv0 1)) (= d (_ bv0 1))) (_ bv0 1)
+																( ite 
+																	(and (= b (_ bv0 1)) (= c (_ bv0 1)) (= d (_ bv0 1))) (_ bv0 1) cs
+																) 
+														) 
+												)
+								
+										)
+								)
+				
+						)
+				)
+		)
+)
+
+; This function finds the next state of the output of a 2 input NCL gate with threshold 1
+; a, b, c, d: inputs
+;This is a TH24comp NCL Gate: A*C + B*C + A*D + B*D
+
+(define-fun TH24comp ( ( cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1)) (c (_ BitVec 1)) (d (_ BitVec 1)) ) (_ BitVec 1)
+
+		(ite
+			(and (= a (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+				(ite
+					(and (= b (_ bv1 1)) (= c (_ bv1 1))) (_ bv1 1)
+						(ite
+							(and (= a (_ bv1 1)) (= d (_ bv1 1))) (_ bv1 1)
+								(ite
+									(and (= b (_ bv1 1)) (= d (_ bv1 1))) (_ bv1 1)
+										(ite	
+											(and (= a (_ bv0 1)) (= c (_ bv0 1))) (_ bv0 1)
+												(ite
+													(and (= b (_ bv0 1)) (= c(_ bv0 1))) (_ bv0 1)
+														(ite 
+															(and (= a (_ bv0 1)) (= d (_ bv0 1))) (_ bv0 1)
+																(ite 
+																	(and (= b (_ bv0 1)) (= d (_ bv0 1))) (_ bv0 1) cs
+																)
+														)
+												)
+										)
+								)
+						)
+				)
+		)
+)
+					
+
+
+;-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+(declare-fun ncl_wire1() (_ BitVec 1))
+(declare-fun ncl_wire2() (_ BitVec 1))
+(declare-fun ncl_wire3() (_ BitVec 1))
+(declare-fun ncl_wire4() (_ BitVec 1))
+(declare-fun cs_5() (_ BitVec 1))
+(declare-fun cs_6() (_ BitVec 1))
+(declare-fun cs_7() (_ BitVec 1))
+(declare-fun cs_8() (_ BitVec 1))
+(declare-fun wire1() (_ BitVec 1))
+(declare-fun wire2() (_ BitVec 1))
+
+(assert
+
+   (not
+
+       (let ((ncl_wire5 (TH24comp cs_5 ncl_wire4 ncl_wire1 ncl_wire2 ncl_wire3)))
+
+       (let ((ncl_wire6 (TH24comp cs_6 ncl_wire4 ncl_wire2 ncl_wire3 ncl_wire1)))
+
+       (let ((ncl_wire7 (TH12 cs_7 ncl_wire4 ncl_wire2)))
+
+       (let ((ncl_wire8 (TH22 cs_8 ncl_wire3 ncl_wire1)))
+
+
+       (let ((wire3 (bvxor wire1 wire2)))
+
+       (let ((wire4 (bvand wire1 wire2)))
+
+
+       (=> (and (not (and (= ncl_wire1 (_ bv1 1)) (= ncl_wire2 (_ bv1 1))))
+                (= ncl_wire1 wire1)
+                (not (and (= ncl_wire3 (_ bv1 1)) (= ncl_wire4 (_ bv1 1))))
+                (= ncl_wire3 wire2)
+                (= ncl_wire6 (bvnot ncl_wire5))
+                (= ncl_wire8 (bvnot ncl_wire7)))
+           (and
+                (= ncl_wire6 wire3)
+                (= ncl_wire8 wire4)))))))))))
+
+(check-sat)
+(get-model)
