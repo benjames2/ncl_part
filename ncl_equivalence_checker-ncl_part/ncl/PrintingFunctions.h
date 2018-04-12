@@ -416,7 +416,7 @@ void printNclInputDeclaration(GATE_IO *a, int size)
     //Declaring an array of strings for declaring the variables
     char def[] = "(declare-fun ncl_wire"; //This declares a string that will be held for each input declaration to the SMT file
     char def2[] = "(declare-fun ";
-    char bitvec[] = "(_ BitVec";//This is used for the bit vectors
+    char bitvec[] = "(_ BitVec ";//This is used for the bit vectors
     char closing[] = "))";//This closes SMT statements
     char parenthesis[] = "()";
     char getfuncSymbol[12];//Array for holding the function symbols for SMT statement
@@ -453,7 +453,7 @@ void printNclInputDeclaration(GATE_IO *a, int size)
 
     for(i = 0; i <= MAX_SIZE; i++){                         //Goes through all the gate storage and look for inputs to be declared
         if((a[i].bit_size != 0) && (a[i].gate != 0)){                       //looks for gate storage that actually holds something
-                fprintf(fp, "%s" "%s " "%i" "() " "%s" "%i" "%s\n", def2, cs, a[i].wire_out, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
+                fprintf(fp, "%s" "%s" "%i" "() " "%s" "%i" "%s\n", def2, cs, a[i].wire_out, bitvec, a[i].bit_size, closing);//Prints off the input declaration statements to the SMT text file
         }
     }
 
@@ -540,7 +540,7 @@ void printSyncInputDeclaration(GATE_IO *a, int size)
 
     //Declaring an array of strings for declaring the variables
     char def[] = "(declare-fun wire"; //This declares a string that will be held for each input declaration to the SMT file
-    char bitvec[] = "(_ BitVec";//This is used for the bit vectors
+    char bitvec[] = "(_ BitVec ";//This is used for the bit vectors
     char closing[] = "))";//This closes SMT statements
     char parenthesis[] = "()";
 
@@ -747,7 +747,7 @@ void generateProperties (GATE_IO *a, int size)
 
     fprintf(fp, "\n\n");
     fprintf(fp, "(check-sat)\n");
-    fprintf(fp, "(get-model)\n");
+    //fprintf(fp, "(get-model)\n");
 
     InitializeGateStorage(gateStorage, MAX_SIZE);
     readOutputList(input);
