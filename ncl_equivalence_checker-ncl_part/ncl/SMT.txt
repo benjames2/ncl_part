@@ -514,14 +514,38 @@
 )
 
 ------------------------------------------------------------------------------------------------
-
-
+(define-fun ncl_wire1(_ BitVec1))
+(define-fun ncl_wire2(_ BitVec1))
+(define-fun ncl_wire3(_ BitVec1))
+(define-fun ncl_wire4(_ BitVec1))
+(define-fun ncl_wire5(_ BitVec1))
+(define-fun ncl_wire6(_ BitVec1))
 (define-fun wire1(_ BitVec1))
 (define-fun wire2(_ BitVec1))
 (define-fun wire3(_ BitVec1))
-(define-fun wire4(_ BitVec1))
 
-(let ((wire5 (THand0 cs_5 wire1 wire2 wire3 wire4))
-(let ((wire6 (TH22 cs_6 wire3 wire4))))
+(let ((ncl_wire7 (TH23 cs_7 ncl_wire1 ncl_wire3 ncl_wire5))
+(let ((ncl_wire8 (TH23 cs_8 ncl_wire2 ncl_wire4 ncl_wire6))
+(let ((ncl_wire9 (TH34w2 cs_9 ncl_wire8 ncl_wire3 ncl_wire5 ncl_wire1))
+(let ((ncl_wire10 (TH34w2 cs_10 ncl_wire7 ncl_wire6 ncl_wire4 ncl_wire2))))
 
+(let ((wire4 (bvxor wire1 wire2))
+(let ((wire5 (bvand wire1 wire3))
+(let ((wire6 (bvand wire3 wire2))
+(let ((wire7 (bvand wire2 wire1))
+(let ((wire8 (bvxor wire4 wire3))
+(let ((wire9 (bvor wire5 wire6 wire7))))
 
+<<<<<<< HEAD
+(implies (and (= ncl_wire10 (not ncl_wire9))
+              (= ncl_wire10 wire8)
+              (= ncl_wire8 (not ncl_wire7))
+              (= ncl_wire8 wire9)
+              
+=======
+(implies(and (= ncl_wire10 (not ncl_wire9))
+             (= ncl_wire10 wire8)
+             (= ncl_wire8 (not ncl_wire7))
+             (= ncl_wire8 wire9)
+             
+>>>>>>> 379c29ea5e8ad8af8f49e5f238b64a6a8359ba66

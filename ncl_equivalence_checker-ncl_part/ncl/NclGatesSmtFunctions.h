@@ -40,6 +40,7 @@ void PrintNclGatesSmtFunctions()
         c = fgetc(fptr);//Gets the next character value of the SMT Functions file
     }
 
+    fprintf (fp, "\n");
     fclose(fptr);//Close file pointers
     fclose(fp);
     return 0;
