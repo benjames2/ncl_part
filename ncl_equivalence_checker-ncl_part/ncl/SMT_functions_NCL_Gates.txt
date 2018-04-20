@@ -47,6 +47,22 @@
 			
 		)
 
+; This funtion finds the next state of the output of a 3 input NCL gate with threshold 1
+; a, b, r : inputs
+
+(define-fun TH2n ( (cs (_ BitVec 1)) (a (_ BitVec 1)) (b (_ BitVec 1))  (r (_ BitVec 1)) ) (_ BitVec 1)
+				
+		(ite									
+			(and (= a (_ bv1 1)) (= b (_ bv1 1)) (= r (_ bv0 1)) ) (_ bv1 1)
+				( ite 
+					(and (= a (_ bv0 1)) (= b (_ bv0 1)) (= r (_ bv1 1))  ) (_ bv0 1) cs) 
+			
+			)
+			
+		)
+
+
+
 ; This funtion finds the next state of the output of a 2 input NCL gate with threshold 1
 ; a, b : inputs
 
